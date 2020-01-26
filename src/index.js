@@ -4,6 +4,12 @@ import app from './app.vue'
 import store from './vuex/vuex'
 import './style/index.less'
 
+/*import 'element-ui/lib/theme-chalk/index.css';
+import { Button } from 'element-ui';
+
+Vue.component('el-button', Button);*/
+
+
 Vue.component('buttonCounter', {
    data: function () {
       return {

@@ -1,53 +1,59 @@
 <template>
-    <div>
-        <mainHeader></mainHeader>
-        首页11
-        <img :src="logo" style="width: 200px">
-        <blog-post title="Why Vue is so fun"><template v-slot:one>77</template><template v-slot:two>qq</template></blog-post>
-        <p id="demo">点击这个按钮，获得您的坐标：</p>
-        <button @click="getLocation">试一下</button>
+    <div class="tlbbMain">
+           <div class="bannerWrap">
+              <div class="banner1" :style="{backgroundImage:'url(' + bannerFeel + ')' }">
+                  <p class="tips">
+                       免输验证码，一键抢购心仪账号
+                  </p>
+                  <p class="tips" style="right:450px;top:110px">
+                      解放双手
+                  </p>
+                  <p class="tips" style="right:400px;top:180px">
+                      <button>免费体验</button>
+                  </p>
+              </div>
+           </div>
+           <div class="buySection">
+               <div class="title" title="在输入框输入需要抢购的商品号，点击确认即可自动抢购">
+                   公示区秒杀
+               </div>
+               <div class="shoppingIdWrap">
+                     <label>商品号</label><input type="text" v-model="shoppingId" class="shoppingId"></input><button @click="buySubmit">确认抢购</button>
+               </div>
+               <div>
+                   <div style="margin-top: 20px;color:red">
+                       {{shoppingMsg.id}}
+                   </div>
+                   <div>
+                       {{shoppingMsg.msg}}<span style="color: red">{{shoppingMsg.time}}</span><span v-show="shoppingMsg.time">将会自动下单</span>
+                   </div>
+               </div>
+               <div style="height: 250px;overflow: scroll">
+                   <table class="bugLog">
+                       <tr>
+                           <td>验证码图片</td>
+                           <td>识别结果</td>
+                           <td>秒杀日志</td>
+                       </tr>
+                       <tr v-for="item in bugLog">
+                           <td>
+                               <img :src="item.img"/>
+                           </td>
+                           <td>
+                               {{item.value}}
+                           </td>
+                           <td>
+                               {{item.result}}
+                           </td>
+                       </tr>
+
+                   </table>
+               </div>
+
+           </div>
     </div>
 </template>
 
-
-<script>
-  // import mainHeader from './../components/mainHeader.vue'
-  import mainHeader from 'components/mainHeader'
- // import logo from './../assets/img/logo.png'
+<script src="./home.js"></script>
 
 
-    export default {
-       data:function(){
-         return {
-             logo:logo
-         }
-       },
-        name: "home",
-        components:{
-            mainHeader,
-        },
-        created() {
-            this.test()
-            this.$store.commit('priceHigh',{price:100})
-        },
-        methods:{
-     getLocation:function(){
-      let x=document.getElementById("demo");
-      if (navigator.geolocation)
-      {
-          navigator.geolocation.getCurrentPosition(this.showPosition);
-      }
-      else{x.innerHTML="Geolocation is not supported by this browser.";}
-     },
-     showPosition:function(position)
-      {
-      x.innerHTML="Latitude: " + position.coords.latitude +
-          "<br />Longitude: " + position.coords.longitude;
-       }
-        }
-    }
-</script>
-
-<style scoped>
-
-</style>

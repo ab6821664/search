@@ -1,3 +1,161 @@
 body{
-  color: red;
+  margin: 0;
+  padding: 0;
+}
+.tlbbMain{
+  width: 100%;
+  .bannerWrap{
+    height: 350px;
+    width:100%;
+    background-color: #f0f8ff;
+    text-align: center;
+    .banner1{
+      height: 100%;
+      display: inline-block;
+      width: 980px;
+      position: relative;
+      .tips{
+        position: absolute;
+        right: 330px;
+        top:50px;
+        color: #ff2992;
+        font-size: 25px;
+        font-weight: bold;
+        button{
+          width: 200px;
+          height: 50px;
+          font-size: 20px;
+          color: #4437ff;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .buySection{
+    width: 980px;
+    margin: 30px auto;
+    .title{
+      color: #ff2992;
+      font-weight: bold;
+      font-size: 22px;
+      padding-left: 20px;
+      border-left: solid 5px #4437ff ;
+    }
+    .shoppingIdWrap{
+      margin-top: 30px;
+      font-size: 18px;
+      input{
+        height: 30px;
+        width: 700px;
+        margin: 0 20px;
+      }
+      button{
+        height: 35px;
+        width: 170px;
+        font-size: 18px;
+        color:#4437ff;
+        font-weight: bold;
+      }
+    }
+
+    .bugLog{
+      width: 950px;
+      min-height: 50px;
+      margin-top: 30px;
+      border: solid 1px #4437ff;
+      td{
+        text-align: center;
+      }
+      .bugId{
+        width: 230px;
+      }
+    }
+  }
+}
+
+.mainHeader{
+  width: 100%;
+  height: 60px;
+  background-color: #f0f8ff;
+  .menuWrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    width: 980px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 auto;
+    font-size: 18px;
+    .leftMenu{
+      div{
+        cursor: pointer;
+      }
+    }
+    .rightMenu{
+      display: flex;
+      div{
+        margin-left: 35px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.register{
+  width: 980px;
+  margin: 50px auto;
+  display: flex;
+ flex-direction: column;
+  align-content: center;
+  p{
+    margin: 5px auto 0;
+    text-align: left;
+    width: 400px;
+    color: red;
+    text-indent: 150px;
+  }
+  .item{
+    margin: 30px auto 0;
+    text-align: center;
+    width: 400px;
+    display: flex;
+    label{
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+    }
+    input{
+      width: 250px;
+      margin-left: 50px;
+      height: 30px;
+    }
+    .mainBtn{
+      margin-left: 150px;
+    }
+  }
+}
+
+.mainBtn{
+  width: 250px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.plainBtn{
+  width: 170px;
+  height: 40px;
+  font-size: 16px;
+  background-color: #409eff;
+  color: white;
+  border-radius: 3px;
+}
+.question{
+  background-color: #7a67ff;
+  color: white;
+  line-height: 28px;
+  font-size: 16px;
+  padding: 2px 10px;
+  position: relative;
 }

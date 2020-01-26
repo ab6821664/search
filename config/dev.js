@@ -28,6 +28,7 @@ module.exports = {
                     'less-loader'
                 ]
             },
+            { test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/, loader: "file-loader" },
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
@@ -43,7 +44,7 @@ module.exports = {
     devtool:'inline-source-map',
     devServer:{
         contentBase: './../dist',
-        host: '192.168.30.239',
+       // host: '106.18.67.224',
         hot: true,
         port:9090
     },

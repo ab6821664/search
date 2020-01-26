@@ -3,14 +3,21 @@ import Vue from 'vue'
 Vue.use(vuex)
 
 const state = {
-     mode:'fast',
-     price:8000
+     score:0,
+     user:'',
+     time:0,
 }
 
 const mutations = {
-    priceHigh:function (state,params) {
-        state.price = state.price+params.price
-        console.log(state.price)
+    setScore (state, score) {
+        console.log('rrrr',score)
+        state.score =score
+    },
+    setTime:function (state,time) {
+        state.time = time
+    },
+    setUser:function (state,user) {
+        state.user = user;
     }
 }
 
