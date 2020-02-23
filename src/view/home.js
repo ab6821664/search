@@ -2,7 +2,7 @@
 // import mainHeader from './../components/mainHeader.vue'
 
 import bannerFeel from './../assets/img/bannerFeel.jpg'
-import {visitAdd} from   './../api/reptile'
+import {visitAdd,spend} from   './../api/reptile'
 import qs from 'qs'
 import axios from 'axios'
 //import Cookies from 'js-cookie'
@@ -21,13 +21,13 @@ export default {
             timesSatus:false,   //  公示区false  购买去 true
             bugLog:[],
             setIntervalBuyTime:'',
-            buyTimer:''
+            buyTimer:'',
+            buyTipsShow:false,
+            buyTips:'',
+            buyBtnTimer:true
         }
     },
     name: "home",
-    components:{
-
-    },
     created() {
         let todayId = sessionStorage.getItem('id')
         if(!todayId){
@@ -37,15 +37,57 @@ export default {
     methods:{
         buySubmit(){
             let self=this;
+            if(this.shoppingId.length<15 ||this.shoppingId.length>22 ){
+                this.buyTips = '请输入正确的商品号'
+                this.buyTipsShow = true;
+                this.shoppingMsg.id =''
+                this.shoppingMsg.msg=''
+                return
+            }
             axios.get('http://tl.cyg.changyou.com/goods/char_detail?serial_num='+this.shoppingId+'&t='+new Date().getTime()).then(res=>{
                 let result = res.data;
                 this.shoppingMsg.id = this.shoppingId;
+                this.bugLog=[];
                 if(result.indexOf("立即购买")>-1){
                     //this_.buy(this_.goods_serial_num,num_detai1.index);
                     this.shoppingMsg.msg = "此商品已经过了公式期，将会自动下单购买此账号.";
                     this.shoppingMsg.time=''
-                    this.buy(this.shoppingId)
+                    let user = localStorage.getItem('user');
+                    if(user){
+                        this.buy(this.shoppingId)
+                    }else {
+                        let testTime = localStorage.getItem('testTime');
+                        if(testTime) testTime=Number(testTime)
+                        console.log(testTime)
+                        if(testTime && testTime>6){
+                            this.buyTipsShow =true;
+                            this.buyTips = '体验次数已经用完！'
+                            this.shoppingMsg.id =''
+                            this.shoppingMsg.msg=''
+                            return;
+                        }
+                        this.buy(this.shoppingId);
+                        let saveTime = testTime? ++testTime : 1;
+                        localStorage.setItem('testTime',saveTime)
+                    }
+
                 }else{
+                    let userScore = this.$store.state.score;
+                    let userTime = this.$store.state.time;
+                    if(userScore<1 || userTime<new Date().getTime()){
+                        this.buyTipsShow =true;
+                        this.buyTips = '账号未注册或者已经过期'
+                        this.shoppingMsg.id =''
+                        this.shoppingMsg.msg=''
+                        return
+                    }
+                    if(result.indexOf("查无此物")>-1){
+                        this.buyTipsShow =true;
+                        this.buyTips = '请检查商品号是否输入正确'
+                        this.shoppingMsg.id =''
+                        this.shoppingMsg.msg=''
+                        return
+                    }
                     var start=result.indexOf("weiboText:");
                     var over=result.indexOf("bdComment:");
                     var msg=result.substring(start+11,over);
@@ -70,13 +112,19 @@ export default {
                     self.buyTimer = setInterval(function () {
                             let time = new Date().getTime()+500;
                             if(self.setIntervalBuyTime && time>self.setIntervalBuyTime){
-                                console.log('启动')
                                 self.buy(self.shoppingMsg.id);
                                 clearInterval(self.buyTimer)
                             }
                         },500)
                 }
-            })
+            }).catch(
+                error=>{
+                    this.buyTipsShow =true;
+                    this.buyTips = '请先根据帮助，设置浏览器。'
+                    this.shoppingMsg.id =''
+                    this.shoppingMsg.msg=''
+                }
+            )
         },
         buy(num) {
             let item = {};
@@ -111,24 +159,38 @@ export default {
                 }
             }
             function get_pass(data) {
-                axios.post(
-                    "http://upload.chaojiying.net/Upload/Processing.php",
+                // 超级鹰
+                /*   let superYing = axios.post(
+                       "http://upload.chaojiying.net/Upload/Processing.php",
+                       {
+                           user:"a6821664",
+                           pass2:"0c5ac1ca87c8a2d0c13afc632fa7ecb4",
+                           softid:"898621",
+                           codetype:"1902",
+                           file_base64:data
+                       }
+                   ).then(function (res) {
+                       var value=res.data.pic_str;
+                       item.value = value;
+                       sec_buy(value)
+                   }).catch(function (error) {
+                       identify(num);
+                   })*/
+                // 图鉴
+                let picture = axios.post('http://api.ttshitu.com/base64',
                     {
-                        user:"a6821664",
-                        pass2:"0c5ac1ca87c8a2d0c13afc632fa7ecb4",
-                        softid:"898621",
-                        codetype:"1902",
-                        file_base64:data
-                    },{
-
+                        username:'a6821664',
+                        password:'a545108175',
+                        typeid:3,
+                        image:data,
                     }
-                ).then(function (res) {
-                    var value=res.data.pic_str;
-                    item.value = value;
-                    sec_buy(value)
-                }).catch(function (error) {
-                    console.log(error)
-                    identify(num);
+                )
+                   picture.then(res=>{
+                   let data = res.data;
+                   let str;
+                   str=data.data.result
+                    item.value = str;
+                    sec_buy(str);
                 })
             }
             function sec_buy(value){
@@ -138,23 +200,31 @@ export default {
                    }
                }).then(res=>{
                    let result= res.data;
-                   console.log(result)
                    if(result.indexOf('success')>-1){
                        item.result = '抢购成功，请自行支付。'
                        self.bugLog.push(JSON.parse(JSON.stringify(item)))
+                       if(localStorage.getItem('user')) spend({user:localStorage.getItem('user'),score:self.bugLog.length})
                    }else {
                        if(result.indexOf('captcha_error')>-1){
                            item.result = '账号未放出'
                            self.bugLog.push(JSON.parse(JSON.stringify(item)))
                            identify(num);
+                       }else if(result.indexOf('登录_畅易阁')>-1){
+                           item.result = '未登录，下单失败，请在本浏览器窗口新打开一个页签登录畅易阁';
+                           self.bugLog.push(JSON.parse(JSON.stringify(item)))
+                           if(localStorage.getItem('user')) spend({user:localStorage.getItem('user'),score:self.bugLog.length})
                        }else {
                            item.result = result;
                            self.bugLog.push(JSON.parse(JSON.stringify(item)))
+                           if(localStorage.getItem('user')) spend({user:localStorage.getItem('user'),score:self.bugLog.length})
                        }
                    }
                })
             }
             identify(num);
+        },
+        freeTest(){
+            alert('阅读帮助，设置好浏览器，即可免费体验！')
         }
     }
 }

@@ -75,3 +75,18 @@ export const login = (fields)=>{
         })
     })
 }
+
+// 充值
+export const spend = (fields)=>{
+    return new Promise((resolve,reject)=>{
+        let url = `${base}/home/spend`;
+        axios.post(
+            url,
+            fields
+        ).then(function (res) {
+            resolve(res)
+        }).catch(function (err) {
+            reject(err)
+        })
+    })
+}

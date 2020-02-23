@@ -2,7 +2,7 @@
     <div class="mainHeader">
        <div class="menuWrap">
            <div class="leftMenu">
-               <div @click="home">首页</div>
+               <div @click="home">畅易阁新天龙</div>
            </div>
            <div class="rightMenu">
                 <div @click="help">帮助</div>
@@ -43,7 +43,7 @@
                    let data =res.data[0];
                    this.$store.commit('setUser',data.user)
                    this.$store.commit('setScore',data.score)
-                   this.$store.commit('setUser',data.user)
+                   this.$store.commit('setTime',data.time)
                })
            }
         }

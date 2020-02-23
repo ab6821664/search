@@ -7,6 +7,7 @@ module.exports = {
     entry: {
       app:'./src/index.js',
     },
+    mode:'production',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(process.cwd(), 'dist')
@@ -58,7 +59,8 @@ module.exports = {
     plugins:[
         new CleanWebpackPlugin(),
         new htmlWebpackPlugin({
-            template:'./index.html'
+            template:'./index.html',
+            favicon: './src/assets/img/title.ico',
         }),
         new VueLoaderPlugin(),
     ],

@@ -5,11 +5,11 @@
                   <p class="tips">
                        免输验证码，一键抢购心仪账号
                   </p>
-                  <p class="tips" style="right:450px;top:110px">
-                      解放双手
+                  <p class="tips" style="right:350px;top:110px">
+                      解放双手，200毫秒完成下单
                   </p>
                   <p class="tips" style="right:400px;top:180px">
-                      <button>免费体验</button>
+                      <button @click="freeTest">免费体验</button>
                   </p>
               </div>
            </div>
@@ -18,14 +18,15 @@
                    公示区秒杀
                </div>
                <div class="shoppingIdWrap">
-                     <label>商品号</label><input type="text" v-model="shoppingId" class="shoppingId"></input><button @click="buySubmit">确认抢购</button>
+                     <label>商品号</label><input type="text" v-model.trim="shoppingId" @focus="buyTipsShow=false" class="shoppingId"></input><button @click="buySubmit">确认抢购</button><br/>
+                     <p style="color:red;font-size: 14px" v-if="buyTipsShow">{{buyTips}}</p>
                </div>
-               <div>
+               <div v-show="!buyTipsShow">
                    <div style="margin-top: 20px;color:red">
                        {{shoppingMsg.id}}
                    </div>
                    <div>
-                       {{shoppingMsg.msg}}<span style="color: red">{{shoppingMsg.time}}</span><span v-show="shoppingMsg.time">将会自动下单</span>
+                       {{shoppingMsg.msg}}<span style="color: red">{{shoppingMsg.time}}</span><span v-show="shoppingMsg.time">将会自动下单（请确认您已经在新开的页签登录了畅易阁）</span>
                    </div>
                </div>
                <div style="height: 250px;overflow: scroll">
@@ -50,6 +51,9 @@
                    </table>
                </div>
 
+           </div>
+           <div style="width: 100%;text-align:center;margin: 40px 0">
+               备案号：<a href="beian.miit.gov.cn" style="color: grey;display: inline-block;margin: 0 auto">湘ICP备17018348号</a>
            </div>
     </div>
 </template>

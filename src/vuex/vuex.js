@@ -10,7 +10,6 @@ const state = {
 
 const mutations = {
     setScore (state, score) {
-        console.log('rrrr',score)
         state.score =score
     },
     setTime:function (state,time) {

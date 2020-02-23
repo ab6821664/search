@@ -27,8 +27,8 @@
             <div class="item">
                 <span style="display: inline-block;width: 160px;text-align: left">卡密:</span> <span><input v-model="passCard" @focus="chargeMsgShow=false" placeholder="微信13715549992购卡或者自助购卡"/></span>
             </div>
-            <div class="item" v-show="chargeMsgShow" style="color: red">
-                <p>{{chargeMsg}}</p>
+            <div class="item"  style="color: red">
+                <p v-show="chargeMsgShow">{{chargeMsg}}</p>
             </div>
             <div style="margin-top: 40px;display: flex;justify-content: space-around">
                 <button class="plainBtn" @click="layout">退出登录</button>
