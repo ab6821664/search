@@ -1,7 +1,7 @@
 <template>
     <div class="tlbbMain">
            <div class="bannerWrap">
-              <div class="banner1" :style="{backgroundImage:'url(' + bannerFeel + ')' }">
+              <div class="banner1" :style="{backgroundImage:'url(' + bannerFeel + ')' }" >
                   <p class="tips">
                        免输验证码，一键抢购心仪账号
                   </p>
@@ -53,7 +53,7 @@
 
            </div>
            <div style="width: 100%;text-align:center;margin: 40px 0">
-               备案号：<a href="beian.miit.gov.cn" style="color: grey;display: inline-block;margin: 0 auto">湘ICP备17018348号</a>
+               备案号：<a href="http://beian.miit.gov.cn/" style="color: grey;display: inline-block;margin: 0 auto">湘ICP备17018348号</a>
            </div>
     </div>
 </template>

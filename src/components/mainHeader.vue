@@ -1,5 +1,5 @@
 <template>
-    <div class="mainHeader">
+    <div class="mainHeader" >
        <div class="menuWrap">
            <div class="leftMenu">
                <div @click="home">畅易阁新天龙</div>

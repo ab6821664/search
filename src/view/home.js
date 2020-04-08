@@ -33,6 +33,28 @@ export default {
         if(!todayId){
             visitAdd()
         }
+        class baowei{
+            constructor(){
+                this.name = 'test';
+                this.age=18;
+            }
+            add(){
+                this.age++
+            }
+        }
+        let me = new baowei();
+        class xudong extends baowei {
+            constructor(){
+               super()
+                let array1 = [1,2,3,3,2,6]
+                let array2 = [3,4,9,9,7,1]
+                let array3 = [...array1,...array2]
+                let deal = new Set(array3)
+                let result = [...deal].reduce((pre,next)=>{return pre+next})
+                this.result = result;
+            }
+        }
+        console.log(new xudong())
     },
     methods:{
         buySubmit(){
