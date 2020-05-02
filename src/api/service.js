@@ -1,4 +1,4 @@
-let nodeApiIp = 'http://106.12.103.25:9090'
+let nodeApiIp = 'http://106.12.103.25:8000'
 
 import axios from 'axios'
 

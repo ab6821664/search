@@ -97,7 +97,7 @@ export default {
                             this.shoppingMsg.msg=''
                             return;
                         }
-                        this.buy(this.shoppingId);
+                        this.buy(this.shoppingId,this.sid);
                         let saveTime = testTime? ++testTime : 1;
                         localStorage.setItem('testTime',saveTime)
                     }

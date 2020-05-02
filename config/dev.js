@@ -71,14 +71,6 @@ module.exports = {
             favicon: './src/assets/img/title.ico',
         }),
         new VueLoaderPlugin(),
-        new webpack.DllReferencePlugin({
-            context: __dirname, // 与DllPlugin中的那个context保持一致
-            /**
-             下面这个地址对应webpack.dll.config.js中生成的那个json文件的路径
-             这样webpack打包时，会检测此文件中的映射，不会把存在映射的包打包进bundle.js
-             **/
-            manifest: path.resolve(__dirname,'./vendor-manifest.json')
-        }),
         new CleanWebpackPlugin(),
         new AddAssetHtmlPlugin({
             filepath: require.resolve('./../public/vendor.dll.js')
