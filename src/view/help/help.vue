@@ -9,7 +9,8 @@
             <span v-html="item.answer.text"></span>
             <span v-if="item.answer.img">
                   <br/>
-                <img :src="item.answer.img"/>
+
+                <img  v-for='val in item.answer.img ' :src="val"/>
             </span>
         </p>
         </div>
@@ -17,20 +18,21 @@
 </template>
 
 <script>
-    import chrom from './../../assets/img/setChrom.png'
+    import chrom from './../../assets/img/chrome.png'
+    import fox from './../../assets/img/fox.png'
     export default {
         name: "help",
         data(){
            return{
                questioanList:[
                    {
-                       question:'秒杀前，需要做哪些准备工作呢? 必看！',
+                       question:'sid是什么，怎么获取？',
                         answer:{
                            show:false,
-                            img:chrom,
-                            text:'第一步，如果没有安装谷歌浏览器，我们需要先下载，官方下载链接为<a href="https://www.google.cn/chrome/" target="_blank">https://www.google.cn/chrome/</a></br>' +
-                                '第二步，下载安装后，我们在C盘新建文件夹，命名为temp，并且复制 <span style="color:red">--disable-web-security --user-data-dir=C:\\temp</span> 这行，右击浏览器图标-选择属性- ' +
-                                '快捷方式-目标，在目标这行末尾（原本有的不要动），添加空格，然后粘贴刚刚复制的，就设置完成了，如下图。'
+                            text:'当我们登陆天龙八部畅易阁官方网站后，服务器会返回一个唯一的ID，比如 “6f5a6fa1-43a9-48d5-978a-6e27d8696657”！只要填入这个值就可以用当前登陆的账号去秒杀了，'+
+                                 '这个值存储在浏览器的cookie，具体获取方法见下图, 是谷歌浏览器和火狐浏览器的例子，其它浏览器类似操作。登陆后，首先按下<span style="color:red">F12</span>。<br/>',
+                            img:[chrom,fox],
+
                         }
                    },
                    {
@@ -38,8 +40,7 @@
                        answer:{
                            show:false,
                            img:'',
-                           text:'当我们设置好浏览器后，就可以开始启动秒杀了，但是之前，我们需要在浏览器的同一个窗口打开另外一个页签，打开畅易阁' +
-                               '登录我们的账号，所登录的账号，即是我们下订单的账号。'
+                           text:'当我们设置好浏览器后，就可以开始启动秒杀了，但是之前，我们需要准备sid，与我们所登陆的畅易阁账号唯一对应。'
 
                        }
                    },
@@ -58,7 +59,7 @@
                        answer:{
                            show:false,
                            img:'',
-                           text:'可以的，不需要注册，登录，就可以体验，根据帮助，设置好谷歌浏览器，就可以体验免输验证码，下单的全流程了，但是体验不支持公示区抢号，只可以添加过了公示区的账号。'
+                           text:'可以的，不需要注册，登录，就可以体验，根据帮助，可以体验免输验证码，下单的全流程了，但是体验不支持公示区抢号，只可以添加交易区的账号。'
                        }
                    },
                    {
