@@ -19,6 +19,7 @@ export default {
                 msg:'',
                 time:''
             },
+            timer:null,
             timesSatus:false,   //  公示区false  购买去 true
             bugLog:[],
             setIntervalBuyTime:'',
@@ -58,6 +59,27 @@ export default {
             }
         }
         console.log(new xudong())
+    },
+    beforeDestroy(){
+        clearInterval(this.timer)
+    },
+    filters:{
+        showTime(time){
+            if(typeof time == 'string'){
+                return time
+            }
+           let hours = Math.floor(time/3600)
+           let minute = Math.floor((time-hours*3600)/60)
+           let second = time- hours*3600 - minute*60;
+           function format(item) {
+               if(item.length==1){
+                   return '0'+item
+               }else {
+                   return item
+               }
+           }
+           return format(hours)+'小时'+format(minute)+'分钟'+format(second)+'秒'
+        }
     },
     methods:{
         buySubmit(){
@@ -133,7 +155,23 @@ export default {
                     num_detai.targetTimeTall=time_;
                     this.setIntervalBuyTime = time_
                     this.shoppingMsg.msg = num_detai.detail;
-                    this.shoppingMsg.time = num_detai.date_target;
+                    let current = num_detai.date_target;
+                    clearInterval(this.timer)
+
+                    current=current.split('：')[1]
+                    current=current.trim()
+                    if(current.indexOf('天')>-1){
+                        this.shoppingMsg.time = current
+                    }else {
+                        console.log('current',current)
+                        let hour = current.substring(0,2);
+                        let minute = current.substring(4,6)
+                        let second = current.substring(8,10)
+                        this.codeTime()
+                        this.shoppingMsg.time = parseInt(hour)*3600+parseInt(minute)*60+parseInt(second);
+                    }
+
+
                     if(this.buyTimer) clearInterval(this.buyTimer)
                     self.buyTimer = setInterval(function () {
                             let time = new Date().getTime()+500;
@@ -166,6 +204,14 @@ export default {
         },
         goHelp(){
             this.$router.push('./help')
+        },
+        codeTime(){
+            this.timer = setInterval(()=>{
+                this.shoppingMsg.time--;
+                if( this.shoppingMsg.time==0){
+                    clearInterval(this.timer)
+                }
+            },1000)
         },
         freeTest(){
             alert('阅读帮助，设置好浏览器，即可免费体验！')

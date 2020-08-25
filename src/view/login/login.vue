@@ -41,7 +41,8 @@
 
 <script>
     import {login} from './../../api/reptile'
-    import {queryUser,recharge} from './../../api/reptile'
+    import {queryUser} from './../../api/reptile'
+    import {recharge} from './../../api/service'
     import md5 from 'md5'
     export default {
         name: "login",

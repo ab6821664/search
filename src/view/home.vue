@@ -4,7 +4,7 @@
               <div class="banner1" >
                   <h2>使用说明<span style="display: inline-block;font-size: 16px;margin-left: 15px">--速度超乎你的想象</span></h2>
                   <p>
-                      1:天龙八部畅易阁商品在公示期内无法下单，公示期结束的时间不固定，刷新网页会有2秒左右的随机偏移。
+                      1:天龙八部畅易阁商品在公示期内无法下单，公示期结束的时间不固定，刷新网页会有<span style="color: red">3</span>秒左右的随机偏移。
                   </p>
                   <p>
                       2:识别验证码，执行勾选购买操作，一共耗时200毫秒左右，远超手动，
@@ -26,6 +26,7 @@
                </div>
                <div class="shoppingIdWrap">
                    <div>
+                       <div style="margin: 0 0 40px"><a href="https://bwtlbb9.gz.bcebos.com/20200826_003247.mp4?authorization=bce-auth-v1/d34049826e8f4689b99579a3d30975ec/2020-08-25T16:38:22Z/-1/host/6800bd923fdd1050b285436bdc0af9503155c2509837e033cbfed8fc2099b993" target="_blank">秒杀公示区账号视频演示</a></div>
                    <label >天龙账号sid</label>
                        <input type="text" title="sid的有效期为半小时" placeholder='请输入畅易阁登录的天龙账号对应的sid' v-model.trim="sid" @focus="buyTipsShow=false" class="shoppingId"></input>
                        <span style="color: #4b54ff;cursor: pointer" title="sid怎么得到，点击获取帮助" @click="goHelp">怎么获取sid？</span>
@@ -40,7 +41,7 @@
                        {{shoppingMsg.id}}
                    </div>
                    <div>
-                       {{shoppingMsg.msg}}<span style="color: red">{{shoppingMsg.time}}</span><span v-show="shoppingMsg.time">，时间到了后将会自动下单，抢购成功后，将会在你输入的sid对应的登录畅易阁的天龙账号名下！</span>
+                       {{shoppingMsg.msg}}<span style="color: red">{{shoppingMsg.time |showTime}}</span><span v-show="shoppingMsg.time">，时间到了后将会自动下单，抢购成功后，将会在你输入的sid对应的登录畅易阁的天龙账号名下！</span>
                    </div>
                </div>
                <div style="height: 250px;overflow: scroll">
