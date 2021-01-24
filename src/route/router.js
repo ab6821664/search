@@ -10,6 +10,10 @@ const routes = [
         name:'index',
     },
     {
+        path:'/bw',
+        component:()=>import('./../components/charge.vue')
+    },
+    {
         path:'/main',
         name:'main',
         component:()=>import('./../view/main/main.vue'),
